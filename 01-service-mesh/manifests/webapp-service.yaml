@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+spec:
+  # The 'type' field belongs inside the 'spec' section.
+  type: ClusterIP  # <--- Moved to here
+  selector:
+    app: webapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
