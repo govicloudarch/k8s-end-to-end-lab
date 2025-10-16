@@ -108,6 +108,10 @@ multipass exec "${MASTER}" -- bash -c "
   kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 "
 
+# Add local-path-provisioner for dynamic storage
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+kubectl patch storageclass local-path -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
 # Wait for flannel daemonset pods
 echo "[+] Waiting for Flannel pods to be Ready..."
 multipass exec "${MASTER}" -- bash -c "
